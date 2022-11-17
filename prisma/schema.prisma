@@ -1,0 +1,110 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-1.1.x"]
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model protetico {
+  id                   String                 @id @default(auto()) @map("_id") @db.ObjectId
+  servicoExecucaoEtapa servicoExecucaoEtapa[]
+}
+
+model usuario {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  nome  String
+  email String @unique
+  senha String
+}
+
+model servico {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  nome String @unique
+
+  etapa            etapa[]
+  clienteServico   clienteServico[]
+  servicoExecutado servicoExecucao[]
+  clienteEtapa     clienteEtapa[]
+}
+
+model dentista {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  nome      String
+  clienteId String
+
+  servicoExecutado servicoExecucao[]
+  cliente          cliente           @relation(fields: [clienteId], references: [id])
+}
+
+model etapa {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  nome      String @unique
+  valor     Int
+  servicoId String
+
+  servico      servico        @relation(fields: [servicoId], references: [id])
+  clienteEtapa clienteEtapa[]
+}
+
+model cliente {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  nome String
+  cpf  Int    @unique
+
+  clienteServico clienteServico[]
+  clienteEtapa   clienteEtapa[]
+  dentista       dentista[]
+}
+
+model servicoExecucao {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  servicoId        String
+  dentistaId       String
+  clienteServicoId String
+
+  clienteServico       clienteServico         @relation(fields: [clienteServicoId], references: [id])
+  servico              servico                @relation(fields: [servicoId], references: [id])
+  dentista             dentista               @relation(fields: [dentistaId], references: [id])
+  servicoExecucaoEtapa servicoExecucaoEtapa[]
+}
+
+model servicoExecucaoEtapa {
+  id                 String @id @default(auto()) @map("_id") @db.ObjectId
+  proteticoId        String
+  clienteEtapaId     String
+  servicoExecutadoId String
+
+  protetico       protetico       @relation(fields: [proteticoId], references: [id])
+  clienteEtapa    clienteEtapa    @relation(fields: [clienteEtapaId], references: [id])
+  servicoExecucao servicoExecucao @relation(fields: [servicoExecutadoId], references: [id])
+}
+
+model clienteEtapa {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  clienteId String
+  servicoId String
+  etapaId   String
+
+  servico              servico                @relation(fields: [servicoId], references: [id])
+  etapa                etapa                  @relation(fields: [etapaId], references: [id])
+  cliente              cliente                @relation(fields: [clienteId], references: [id])
+  servicoExecucaoEtapa servicoExecucaoEtapa[]
+}
+
+model clienteServico {
+  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  clienteId String
+  servicoId String
+  valor     Int
+
+  servico          servico           @relation(fields: [servicoId], references: [id])
+  cliente          cliente           @relation(fields: [clienteId], references: [id])
+  servicoExecutado servicoExecucao[]
+}
