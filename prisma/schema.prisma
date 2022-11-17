@@ -37,17 +37,17 @@ model servico {
 model dentista {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
   nome      String
-  clienteId String
+  clienteId String @db.ObjectId
 
+  cliente          cliente           @relation(references: [id], fields: [clienteId])
   servicoExecutado servicoExecucao[]
-  cliente          cliente           @relation(fields: [clienteId], references: [id])
 }
 
 model etapa {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
   nome      String @unique
   valor     Int
-  servicoId String
+  servicoId String @db.ObjectId
 
   servico      servico        @relation(fields: [servicoId], references: [id])
   clienteEtapa clienteEtapa[]
@@ -65,9 +65,9 @@ model cliente {
 
 model servicoExecucao {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
-  servicoId        String
-  dentistaId       String
-  clienteServicoId String
+  servicoId        String @db.ObjectId
+  dentistaId       String @db.ObjectId
+  clienteServicoId String @db.ObjectId
 
   clienteServico       clienteServico         @relation(fields: [clienteServicoId], references: [id])
   servico              servico                @relation(fields: [servicoId], references: [id])
@@ -77,9 +77,9 @@ model servicoExecucao {
 
 model servicoExecucaoEtapa {
   id                 String @id @default(auto()) @map("_id") @db.ObjectId
-  proteticoId        String
-  clienteEtapaId     String
-  servicoExecutadoId String
+  proteticoId        String @db.ObjectId
+  clienteEtapaId     String @db.ObjectId
+  servicoExecutadoId String @db.ObjectId
 
   protetico       protetico       @relation(fields: [proteticoId], references: [id])
   clienteEtapa    clienteEtapa    @relation(fields: [clienteEtapaId], references: [id])
@@ -88,9 +88,9 @@ model servicoExecucaoEtapa {
 
 model clienteEtapa {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
-  clienteId String
-  servicoId String
-  etapaId   String
+  clienteId String @db.ObjectId
+  servicoId String @db.ObjectId
+  etapaId   String @db.ObjectId
 
   servico              servico                @relation(fields: [servicoId], references: [id])
   etapa                etapa                  @relation(fields: [etapaId], references: [id])
@@ -100,8 +100,8 @@ model clienteEtapa {
 
 model clienteServico {
   id        String @id @default(auto()) @map("_id") @db.ObjectId
-  clienteId String
-  servicoId String
+  clienteId String @db.ObjectId
+  servicoId String @db.ObjectId
   valor     Int
 
   servico          servico           @relation(fields: [servicoId], references: [id])
