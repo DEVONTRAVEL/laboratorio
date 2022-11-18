@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './service/jwt.service';
-
+import { PrismaService } from '../prisma/prisma.service';
+import { AuthController } from './aplicacao/controller/auth.controller';
+import { AuthService } from './aplicacao/service/auth.service';
+import { JwtStrategy } from './aplicacao/service/jwt.service';
+import { AuthRepository } from './infra/repository/mongodb/auth.repository';
 @Module({
   imports: [
     JwtModule.register({
@@ -9,7 +12,7 @@ import { JwtStrategy } from './service/jwt.service';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  controllers: [],
-  providers: [JwtStrategy],
+  controllers: [AuthController],
+  providers: [JwtStrategy, AuthService, AuthRepository, PrismaService],
 })
 export class AuthModule {}
