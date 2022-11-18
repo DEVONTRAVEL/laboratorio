@@ -9,6 +9,7 @@ export class UsuarioController {
 
   @Get()
   async listar(): Promise<ListarUsuariosQuery[]> {
+    const a = 'a';
     return await this.usuarioService.listar();
   }
 
