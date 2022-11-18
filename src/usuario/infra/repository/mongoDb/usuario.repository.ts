@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/prisma/prisma.service';
+import { CriaUsuarioCommand } from 'src/usuario/dominio/command/criaUsuario.command';
 
 @Injectable()
 export class UsuarioRepository {
@@ -7,13 +8,30 @@ export class UsuarioRepository {
 
   async listar() {
     try {
-      const resultado = await this.prismaService.usuario.findMany();
+      const resultado = await this.prismaService.usuario.findMany({
+        select: {
+          id: true,
+          email: true,
+          nome: true,
+          senha: false,
+        },
+      });
 
       if (resultado.length <= 0) {
         return false;
       }
 
       return resultado;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async criar(criaUsuarioCommand: CriaUsuarioCommand) {
+    try {
+      return await this.prismaService.usuario.create({
+        data: criaUsuarioCommand,
+      });
     } catch (error) {
       return false;
     }

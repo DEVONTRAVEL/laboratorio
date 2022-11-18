@@ -1,5 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
-import { PrismaService } from 'src/core/prisma/prisma.service';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { CriaUsuarioCommand } from 'src/usuario/dominio/command/criaUsuario.command';
 import { UsuarioService } from '../service/usuario.service';
 
 @Controller('usuario')
@@ -9,5 +9,10 @@ export class UsuarioController {
   @Get()
   async listar() {
     return await this.usuarioService.listar();
+  }
+
+  @Post()
+  async criar(@Body() criaUsuarioCommand: CriaUsuarioCommand) {
+    return await this.usuarioService.criar(criaUsuarioCommand);
   }
 }
