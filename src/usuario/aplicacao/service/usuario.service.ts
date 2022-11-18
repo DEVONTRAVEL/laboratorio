@@ -4,13 +4,15 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { CriaUsuarioCommand } from 'src/usuario/dominio/command/criaUsuario.command';
+import { ListarUsuariosQuery } from 'src/usuario/dominio/query/listarUsuarios.query';
 import { UsuarioModel } from 'src/usuario/dominio/usuario.model';
 import { UsuarioRepository } from 'src/usuario/infra/repository/mongoDb/usuario.repository';
 
 @Injectable()
 export class UsuarioService {
   constructor(private usuarioRepository: UsuarioRepository) {}
-  async listar() {
+
+  async listar(): Promise<ListarUsuariosQuery[]> {
     const resultado = await this.usuarioRepository.listar();
 
     if (!resultado) {
