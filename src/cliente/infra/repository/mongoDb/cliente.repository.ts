@@ -37,6 +37,9 @@ export class ClienteRepository {
   async buscar(id: string): Promise<Cliente | false> {
     try {
       const resultado = await this.prismaService.cliente.findUnique({
+        include: {
+          dentista: true,
+        },
         where: {
           id,
         },

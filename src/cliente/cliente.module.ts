@@ -14,5 +14,6 @@ import { ClienteRepository } from './infra/repository/mongoDb/cliente.repository
     ClienteRepository,
     IsCpfUniqueValidator,
   ],
+  exports: [ClienteService, ClienteRepository],
 })
 export class ClienteModule {}
