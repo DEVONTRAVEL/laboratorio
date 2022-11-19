@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { CriaUsuarioCommand } from 'src/usuario/dominio/command/criaUsuario.command';
 import { ListarUsuariosQuery } from 'src/usuario/dominio/query/listarUsuarios.query';
-import { UsuarioModel } from 'src/usuario/dominio/usuario.model';
 import { UsuarioRepository } from 'src/usuario/infra/repository/mongoDb/usuario.repository';
 
 @Injectable()
