@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { AtualizarDentistaCommand } from 'src/dentista/dominio/command/atualizarDentista.command';
+import { ListarDentistaCommand } from 'src/dentista/dominio/command/listarDentista.command';
 import { CriarDentistaCommand } from 'src/dentista/dominio/command/criarDentista.command';
 import { Dentista } from 'src/dentista/dominio/model/dentista.model';
 import { DentistaRepository } from 'src/dentista/infra/repository/mongoDb/dentista.repository';
@@ -12,8 +13,12 @@ import { DentistaRepository } from 'src/dentista/infra/repository/mongoDb/dentis
 export class DentistaService {
   constructor(private dentistaRepository: DentistaRepository) {}
 
-  async listar(): Promise<Dentista[]> {
-    const resultado = await this.dentistaRepository.listar();
+  async listar(
+    listarDentistaCommand: ListarDentistaCommand,
+  ): Promise<Dentista[]> {
+    const resultado = await this.dentistaRepository.listar(
+      listarDentistaCommand,
+    );
 
     if (!resultado) {
       throw new NotFoundException('Nenhum dentista encontrado');

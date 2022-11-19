@@ -5,11 +5,13 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/core/auth/guard/jwt.guard';
 import { DataAtualizarDentistaCommand } from 'src/dentista/dominio/command/atualizarDentista.command';
+import { ListarDentistaCommand } from 'src/dentista/dominio/command/listarDentista.command';
 import { CriarDentistaCommand } from 'src/dentista/dominio/command/criarDentista.command';
 import { Dentista } from 'src/dentista/dominio/model/dentista.model';
 import { DentistaService } from '../service/dentista.service';
@@ -23,8 +25,10 @@ export class DentistaController {
 
   @ApiOperation({ summary: 'Lista todos os dentista' })
   @Get()
-  async listar(): Promise<Dentista[]> {
-    return await this.dentistaService.listar();
+  async listar(
+    @Query() listarDentistaCommand: ListarDentistaCommand,
+  ): Promise<Dentista[]> {
+    return await this.dentistaService.listar(listarDentistaCommand);
   }
 
   @ApiOperation({ summary: 'Busca um dentista' })
