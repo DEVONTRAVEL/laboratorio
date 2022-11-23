@@ -19,6 +19,6 @@ async function bootstrap() {
   SwaggerModule.setup('doc', app, document);
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

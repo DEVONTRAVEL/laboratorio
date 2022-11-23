@@ -17,7 +17,7 @@ import { Dentista } from 'src/dentista/dominio/model/dentista.model';
 import { DentistaService } from '../service/dentista.service';
 
 @ApiTags('Dentista')
-@UseGuards(JwtGuard)
+// @UseGuards(JwtGuard)
 @ApiBearerAuth()
 @Controller('dentista')
 export class DentistaController {

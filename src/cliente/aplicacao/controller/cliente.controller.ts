@@ -15,7 +15,7 @@ import { JwtGuard } from 'src/core/auth/guard/jwt.guard';
 import { ClienteService } from '../service/cliente.service';
 
 @ApiTags('Cliente')
-@UseGuards(JwtGuard)
+// @UseGuards(JwtGuard)
 @ApiBearerAuth()
 @Controller('cliente')
 export class ClienteController {

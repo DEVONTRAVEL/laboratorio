@@ -8,6 +8,7 @@ import { JwtStrategy } from './aplicacao/service/jwt.service';
 import { AuthRepository } from './infra/repository/mongodb/auth.repository';
 @Module({
   imports: [
+    ConfigModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
