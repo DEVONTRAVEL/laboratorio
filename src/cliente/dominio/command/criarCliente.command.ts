@@ -10,7 +10,7 @@ export class CriarClienteCommand {
 
   @ApiProperty()
   @IsNotEmpty({ message: 'CPF é obrigatório' })
-  @IsInt({ message: 'CPF deve ser um número' })
+  @IsString({ message: 'CPF deve ser um texto' })
   @IsCpfUnique({ message: 'CPF já cadastrado' })
-  cpf: number;
+  cpf: string;
 }

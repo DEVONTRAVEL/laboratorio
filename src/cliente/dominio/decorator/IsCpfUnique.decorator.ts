@@ -11,9 +11,9 @@ import { ClienteService } from 'src/cliente/aplicacao/service/cliente.service';
 @Injectable()
 @ValidatorConstraint({ name: 'isCpfUnique', async: true })
 export class IsCpfUniqueValidator implements ValidatorConstraintInterface {
-  constructor(private clienteService: ClienteService) {}
+  constructor(private clienteService: ClienteService) { }
 
-  async validate(cpf: number, args: ValidationArguments) {
+  async validate(cpf: string, args: ValidationArguments) {
     if (!cpf) {
       return true;
     }

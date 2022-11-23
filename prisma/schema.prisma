@@ -56,7 +56,7 @@ model etapa {
 model cliente {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   nome String
-  cpf  Int    @unique
+  cpf  String @unique
 
   clienteServico clienteServico[]
   clienteEtapa   clienteEtapa[]

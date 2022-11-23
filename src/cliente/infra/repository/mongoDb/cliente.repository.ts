@@ -6,7 +6,7 @@ import { PrismaService } from 'src/core/prisma/prisma.service';
 
 @Injectable()
 export class ClienteRepository {
-  constructor(private prismaService: PrismaService) {}
+  constructor(private prismaService: PrismaService) { }
 
   async listar(): Promise<Cliente[] | false> {
     try {
@@ -55,7 +55,7 @@ export class ClienteRepository {
     }
   }
 
-  async verificarCpfExistente(cpf: number): Promise<boolean> {
+  async verificarCpfExistente(cpf: string): Promise<boolean> {
     const cliente = await this.prismaService.cliente.findUnique({
       where: {
         cpf,

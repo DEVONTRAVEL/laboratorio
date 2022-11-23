@@ -10,7 +10,7 @@ import { ClienteRepository } from 'src/cliente/infra/repository/mongoDb/cliente.
 
 @Injectable()
 export class ClienteService {
-  constructor(private clienteRepository: ClienteRepository) {}
+  constructor(private clienteRepository: ClienteRepository) { }
 
   async listar(): Promise<Cliente[]> {
     const resultado = await this.clienteRepository.listar();
@@ -42,7 +42,7 @@ export class ClienteService {
     return resultado;
   }
 
-  async verificarCpfExistente(cpf: number): Promise<boolean> {
+  async verificarCpfExistente(cpf: string): Promise<boolean> {
     return await this.clienteRepository.verificarCpfExistente(cpf);
   }
 

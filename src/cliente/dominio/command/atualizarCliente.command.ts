@@ -7,7 +7,7 @@ export class DataAtualizarClienteCommand {
 
   @ApiPropertyOptional()
   @IsCpfUnique({ message: 'CPF já cadastrado' })
-  cpf: number;
+  cpf: string;
 }
 
 export class AtualizarClienteCommand {
