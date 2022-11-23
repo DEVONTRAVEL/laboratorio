@@ -54,9 +54,9 @@ model etapa {
 }
 
 model cliente {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  nome String
-  cpf  String @unique
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  nome    String
+  cpfCnpj String? @default("")
 
   clienteServico clienteServico[]
   clienteEtapa   clienteEtapa[]

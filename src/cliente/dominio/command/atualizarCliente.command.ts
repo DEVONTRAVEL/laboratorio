@@ -6,8 +6,8 @@ export class DataAtualizarClienteCommand {
   nome: string;
 
   @ApiPropertyOptional()
-  @IsCpfUnique({ message: 'CPF já cadastrado' })
-  cpf: string;
+  @IsCpfUnique({ message: 'CPF CNPJ já cadastrado' })
+  cpfCnpj: string;
 }
 
 export class AtualizarClienteCommand {

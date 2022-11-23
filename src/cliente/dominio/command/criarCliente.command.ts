@@ -9,6 +9,6 @@ export class CriarClienteCommand {
   nome: string;
 
   @ApiPropertyOptional()
-  @IsCpfUnique({ message: 'CPF já cadastrado' })
-  cpf: string;
+  @IsCpfUnique({ message: 'CPF CNPJ já cadastrado' })
+  cpfCnpj: string;
 }

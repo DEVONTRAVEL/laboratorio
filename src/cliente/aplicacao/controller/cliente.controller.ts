@@ -19,7 +19,7 @@ import { ClienteService } from '../service/cliente.service';
 @ApiBearerAuth()
 @Controller('cliente')
 export class ClienteController {
-  constructor(private clienteService: ClienteService) {}
+  constructor(private clienteService: ClienteService) { }
 
   @ApiOperation({ summary: 'Lista todos os clientes' })
   @Get()

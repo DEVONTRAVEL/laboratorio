@@ -55,10 +55,10 @@ export class ClienteRepository {
     }
   }
 
-  async verificarCpfExistente(cpf: string): Promise<boolean> {
-    const cliente = await this.prismaService.cliente.findUnique({
+  async verificarCpfExistente(cpfCnpj: string): Promise<boolean> {
+    const cliente = await this.prismaService.cliente.findFirst({
       where: {
-        cpf,
+        cpfCnpj,
       },
     });
 
@@ -74,7 +74,7 @@ export class ClienteRepository {
     data,
   }: AtualizarClienteCommand): Promise<Cliente | false> {
     try {
-      if (!data.cpf) delete data.cpf;
+      if (!data.cpfCnpj) delete data.cpfCnpj;
       if (!data.nome) delete data.nome;
 
       return await this.prismaService.cliente.update({
