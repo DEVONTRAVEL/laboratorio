@@ -26,7 +26,7 @@ export class ClienteService {
   async criar({ cpfCnpj, nome }: CriarClienteCommand): Promise<Cliente> {
     const cliente = await this.clienteRepository.criar({
       nome,
-      cpfCnpj: CpfCnpj.limpar(cpfCnpj)
+      cpfCnpj: cpfCnpj ? CpfCnpj.limpar(cpfCnpj) : ""
     });
 
     if (!cliente) {
