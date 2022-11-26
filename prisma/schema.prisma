@@ -45,7 +45,7 @@ model dentista {
 
 model etapa {
   id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  nome         String         @unique
+  nome         String
   valor        Int
   servicoId    String         @db.ObjectId
   clienteEtapa clienteEtapa[]

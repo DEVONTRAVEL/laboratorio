@@ -6,16 +6,16 @@ import {
   ValidatorConstraint,
   ValidatorConstraintInterface,
 } from 'class-validator';
-import { ClienteService } from 'src/cliente/aplicacao/service/cliente.service';
+import { ServicoService } from 'src/servico/aplicacao/service/servico.service';
 
 @Injectable()
 @ValidatorConstraint({ name: 'isRealClient', async: true })
-export class IsRealClientValidator implements ValidatorConstraintInterface {
-  constructor(private clienteService: ClienteService) {}
+export class IsRealServicoValidator implements ValidatorConstraintInterface {
+  constructor(private servicoService: ServicoService) {}
 
-  async validate(clienteId: string, args: ValidationArguments) {
+  async validate(servicoId: string, args: ValidationArguments) {
     try {
-      await this.clienteService.buscar(clienteId);
+      await this.servicoService.buscar(servicoId);
     } catch (error) {
       return false;
     }
@@ -24,14 +24,14 @@ export class IsRealClientValidator implements ValidatorConstraintInterface {
   }
 }
 
-export const IsRealClient = (opcoesDeValidacao: ValidationOptions) => {
+export const IsRealServico = (opcoesDeValidacao: ValidationOptions) => {
   return (objeto: Object, propriedade: any) => {
     registerDecorator({
       target: objeto.constructor,
       propertyName: propriedade,
       options: opcoesDeValidacao,
       constraints: [],
-      validator: IsRealClientValidator,
+      validator: IsRealServicoValidator,
     });
   };
 };

@@ -13,9 +13,9 @@ import { ServicoModule } from './servico/servico.module';
     UsuarioModule,
     ClienteModule,
     DentistaModule,
-    ServicoModule
+    ServicoModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

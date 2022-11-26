@@ -1,4 +1,5 @@
 import { ClienteEtapa } from './clienteEtapa.model';
+import { Servico } from './servico.model';
 
 export class Etapa {
   id: string;
@@ -6,4 +7,5 @@ export class Etapa {
   valor: number;
   servicoId: string;
   clienteEtapa?: ClienteEtapa[];
+  servico?: Servico;
 }
