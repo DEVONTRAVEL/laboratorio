@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  HttpException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -42,6 +43,11 @@ export class ServicoService {
   }
 
   async atualizar(atualizarServicoCommand: AtualizarServicoCommand) {
+    try {
+      await this.buscar(atualizarServicoCommand.id);
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
+    }
     const servico = await this.servicoRepository.atualizar(
       atualizarServicoCommand,
     );
