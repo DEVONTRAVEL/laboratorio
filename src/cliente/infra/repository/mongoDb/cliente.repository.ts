@@ -56,17 +56,21 @@ export class ClienteRepository {
   }
 
   async verificarCpfExistente(cpfCnpj: string): Promise<boolean> {
-    const cliente = await this.prismaService.cliente.findFirst({
-      where: {
-        cpfCnpj,
-      },
-    });
+    try {
+      const cliente = await this.prismaService.cliente.findFirst({
+        where: {
+          cpfCnpj,
+        },
+      });
 
-    if (!cliente) {
-      return true;
+      if (!cliente) {
+        return true;
+      }
+
+      return false;
+    } catch (error) {
+      return false;
     }
-
-    return false;
   }
 
   async atualizar({
