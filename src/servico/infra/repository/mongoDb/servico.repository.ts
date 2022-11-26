@@ -34,6 +34,9 @@ export class ServicoRepository {
   async buscar(id: string) {
     try {
       const resultado = await this.prismaService.servico.findFirst({
+        include: {
+          etapa: true,
+        },
         where: {
           id,
         },
