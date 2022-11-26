@@ -14,7 +14,7 @@ import { AuthRepository } from './infra/repository/mongodb/auth.repository';
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET'),
         signOptions: {
-          expiresIn: '1h',
+          expiresIn: '1m',
         },
       }),
       inject: [ConfigService],
