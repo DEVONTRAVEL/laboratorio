@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  HttpException,
 } from '@nestjs/common';
 import { AtualizarDentistaCommand } from 'src/dentista/dominio/command/atualizarDentista.command';
 import { ListarDentistaCommand } from 'src/dentista/dominio/command/listarDentista.command';
@@ -50,6 +51,12 @@ export class DentistaService {
   async atualizar(
     atualizarDentistaCommand: AtualizarDentistaCommand,
   ): Promise<Dentista> {
+    try {
+      await this.buscar(atualizarDentistaCommand.id);
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
+    }
+
     const dentista = await this.dentistaRepository.atualizar(
       atualizarDentistaCommand,
     );
