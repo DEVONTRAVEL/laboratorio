@@ -1,6 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class ListarServicoCommand {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ enum: ['true', 'false'] })
   etapa: string;
 }

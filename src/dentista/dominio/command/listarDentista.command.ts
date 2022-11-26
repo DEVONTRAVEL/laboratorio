@@ -1,8 +1,8 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class ListarDentistaCommand {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ enum: ['true', 'false'] })
   cliente: string;
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({ enum: ['true', 'false'] })
   servicoExecutado: string;
 }
