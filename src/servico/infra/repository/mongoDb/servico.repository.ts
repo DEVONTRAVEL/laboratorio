@@ -9,13 +9,19 @@ import { Servico } from 'src/servico/dominio/model/servico.model';
 export class ServicoRepository {
   constructor(private prismaService: PrismaService) {}
 
-  async listar({ etapa }: ListarServicoCommand) {
+  async listar({ etapa }: ListarServicoCommand): Promise<Servico[] | false> {
     try {
-      return await this.prismaService.servico.findMany({
+      const resultado = await this.prismaService.servico.findMany({
         include: {
           etapa: etapa == 'true' ? true : false,
         },
       });
+
+      if (resultado.length <= 0) {
+        return false;
+      }
+
+      return resultado;
     } catch (error) {
       return false;
     }

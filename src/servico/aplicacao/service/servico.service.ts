@@ -14,7 +14,7 @@ import { ServicoRepository } from 'src/servico/infra/repository/mongoDb/servico.
 export class ServicoService {
   constructor(private servicoRepository: ServicoRepository) {}
 
-  async listar(listarServicoCommand: ListarServicoCommand) {
+  async listar(listarServicoCommand: ListarServicoCommand): Promise<Servico[]> {
     const resultado = await this.servicoRepository.listar(listarServicoCommand);
 
     if (!resultado) {
