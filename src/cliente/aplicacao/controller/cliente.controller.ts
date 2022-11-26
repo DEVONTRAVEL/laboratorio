@@ -15,11 +15,11 @@ import { JwtGuard } from 'src/core/auth/guard/jwt.guard';
 import { ClienteService } from '../service/cliente.service';
 
 @ApiTags('Cliente')
-// @UseGuards(JwtGuard)
+@UseGuards(JwtGuard)
 @ApiBearerAuth()
 @Controller('cliente')
 export class ClienteController {
-  constructor(private clienteService: ClienteService) { }
+  constructor(private clienteService: ClienteService) {}
 
   @ApiOperation({ summary: 'Lista todos os clientes' })
   @Get()
