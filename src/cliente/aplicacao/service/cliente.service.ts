@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  HttpException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -11,7 +12,7 @@ import { CpfCnpj } from 'src/core/util/cpfCnpj';
 
 @Injectable()
 export class ClienteService {
-  constructor(private clienteRepository: ClienteRepository) { }
+  constructor(private clienteRepository: ClienteRepository) {}
 
   async listar(): Promise<Cliente[]> {
     const resultado = await this.clienteRepository.listar();
@@ -26,7 +27,7 @@ export class ClienteService {
   async criar({ cpfCnpj, nome }: CriarClienteCommand): Promise<Cliente> {
     const cliente = await this.clienteRepository.criar({
       nome,
-      cpfCnpj: cpfCnpj ? CpfCnpj.limpar(cpfCnpj) : ""
+      cpfCnpj: cpfCnpj ? CpfCnpj.limpar(cpfCnpj) : '',
     });
 
     if (!cliente) {
@@ -53,6 +54,12 @@ export class ClienteService {
   async atualizar(
     atualizarClienteCommand: AtualizarClienteCommand,
   ): Promise<Cliente> {
+    try {
+      await this.buscar(atualizarClienteCommand.id);
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
+    }
+
     const cliente = await this.clienteRepository.atualizar(
       atualizarClienteCommand,
     );
