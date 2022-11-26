@@ -13,7 +13,7 @@ export class ServicoRepository {
     try {
       return await this.prismaService.servico.findMany({
         include: {
-          etapa: etapa == 1 ? true : false,
+          etapa: etapa == 'true' ? true : false,
         },
       });
     } catch (error) {

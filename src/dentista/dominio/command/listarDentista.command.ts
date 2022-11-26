@@ -2,7 +2,7 @@ import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class ListarDentistaCommand {
   @ApiPropertyOptional()
-  cliente: number;
+  cliente: string;
   @ApiPropertyOptional()
-  servicoExecutado: number;
+  servicoExecutado: string;
 }

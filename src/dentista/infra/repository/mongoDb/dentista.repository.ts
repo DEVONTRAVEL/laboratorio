@@ -14,13 +14,10 @@ export class DentistaRepository {
     servicoExecutado,
   }: ListarDentistaCommand): Promise<Dentista[] | false> {
     try {
-      const clienteFiltro = cliente == 1 ? true : false;
-      const servicoExecutadoFiltro = servicoExecutado == 1 ? true : false;
-
       const resultado = await this.prismaService.dentista.findMany({
         include: {
-          cliente: clienteFiltro,
-          servicoExecutado: servicoExecutadoFiltro,
+          cliente: cliente == 'true' ? true : false,
+          servicoExecutado: servicoExecutado == 'true' ? true : false,
         },
       });
 

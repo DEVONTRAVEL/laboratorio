@@ -6,7 +6,7 @@ import { PrismaService } from 'src/core/prisma/prisma.service';
 
 @Injectable()
 export class ClienteRepository {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
 
   async listar(): Promise<Cliente[] | false> {
     try {
