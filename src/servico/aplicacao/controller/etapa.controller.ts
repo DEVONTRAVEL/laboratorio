@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/core/auth/guard/jwt.guard';
+import { DataAtualizarEtapaCommand } from 'src/servico/dominio/command/atualizarEtapa.command';
 import { CriarEtapaCommand } from 'src/servico/dominio/command/criarEtapa.command';
 import { Etapa } from 'src/servico/dominio/model/etapa.model';
 import { EtapaService } from '../service/etapa.service';
@@ -28,5 +37,16 @@ export class EtapaController {
   @Post()
   async criar(@Body() criarEtapaCommand: CriarEtapaCommand): Promise<Etapa> {
     return await this.etapaService.criar(criarEtapaCommand);
+  }
+
+  @Patch(':id')
+  async atualizar(
+    @Param('id') id: string,
+    @Body() data: DataAtualizarEtapaCommand,
+  ) {
+    return await this.etapaService.atualizar({
+      id,
+      data,
+    });
   }
 }

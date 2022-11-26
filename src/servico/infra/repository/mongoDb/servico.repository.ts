@@ -59,12 +59,18 @@ export class ServicoRepository {
     try {
       if (!data.nome) delete data.nome;
 
-      return await this.prismaService.servico.update({
+      const resultado = await this.prismaService.servico.update({
         data,
         where: {
           id,
         },
       });
+
+      if (!resultado) {
+        return false;
+      }
+
+      return resultado;
     } catch (error) {
       return false;
     }
