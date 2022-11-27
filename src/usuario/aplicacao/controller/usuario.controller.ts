@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { JwtGuard } from 'src/core/auth/guard/jwt.guard';
 import { CriaUsuarioCommand } from 'src/usuario/dominio/command/criaUsuario.command';
+import { BuscarUsuarioQuery } from 'src/usuario/dominio/query/buscarUsuario.query';
 import { ListarUsuariosQuery } from 'src/usuario/dominio/query/listarUsuarios.query';
 import { UsuarioService } from '../service/usuario.service';
 
@@ -16,6 +17,12 @@ export class UsuarioController {
   @Get()
   async listar(): Promise<ListarUsuariosQuery[]> {
     return await this.usuarioService.listar();
+  }
+
+  @ApiOperation({ summary: 'Busca um usuário' })
+  @Get(':id')
+  async buscar(@Param('id') id: string): Promise<BuscarUsuarioQuery> {
+    return await this.usuarioService.buscar(id);
   }
 
   @ApiOperation({ summary: 'Cria um novo usuário' })
