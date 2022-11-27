@@ -15,40 +15,62 @@ export class ClienteService {
   constructor(private clienteRepository: ClienteRepository) {}
 
   async listar(): Promise<Cliente[]> {
-    const resultado = await this.clienteRepository.listar();
+    try {
+      const resultado = await this.clienteRepository.listar();
 
-    if (!resultado) {
-      throw new NotFoundException('Nenhum cliente encontrado');
+      if (!resultado) {
+        throw new NotFoundException('Nenhum cliente encontrado');
+      }
+
+      return resultado;
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
     }
-
-    return resultado;
   }
 
   async criar({ cpfCnpj, nome }: CriarClienteCommand): Promise<Cliente> {
-    const cliente = await this.clienteRepository.criar({
-      nome,
-      cpfCnpj: cpfCnpj ? CpfCnpj.limpar(cpfCnpj) : '',
-    });
+    try {
+      await this.verificarCpfExistente(cpfCnpj);
 
-    if (!cliente) {
-      throw new BadRequestException('Ocorreu um erro ao cadastrar cliente');
+      const cliente = await this.clienteRepository.criar({
+        nome,
+        cpfCnpj: cpfCnpj ? CpfCnpj.limpar(cpfCnpj) : '',
+      });
+
+      if (!cliente) {
+        throw new BadRequestException('Ocorreu um erro ao cadastrar cliente');
+      }
+
+      return cliente;
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
     }
-
-    return cliente;
   }
 
   async buscar(id: string): Promise<Cliente> {
-    const resultado = await this.clienteRepository.buscar(id);
+    try {
+      const resultado = await this.clienteRepository.buscar(id);
 
-    if (!resultado) {
-      throw new NotFoundException('Cliente não encontrado');
+      if (!resultado) {
+        throw new NotFoundException('Cliente não encontrado');
+      }
+
+      return resultado;
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
     }
-
-    return resultado;
   }
 
-  async verificarCpfExistente(cpf: string): Promise<boolean> {
-    return await this.clienteRepository.verificarCpfExistente(cpf);
+  async verificarCpfExistente(cpf: string): Promise<void> {
+    try {
+      const resultado = await this.clienteRepository.verificarCpfExistente(cpf);
+
+      if (resultado) {
+        throw new BadRequestException('CPF/CNPJ já cadastrado');
+      }
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
+    }
   }
 
   async atualizar(
@@ -56,18 +78,22 @@ export class ClienteService {
   ): Promise<Cliente> {
     try {
       await this.buscar(atualizarClienteCommand.id);
+
+      if (atualizarClienteCommand.data.cpfCnpj) {
+        await this.verificarCpfExistente(atualizarClienteCommand.data.cpfCnpj);
+      }
+
+      const cliente = await this.clienteRepository.atualizar(
+        atualizarClienteCommand,
+      );
+
+      if (!cliente) {
+        throw new BadRequestException('Ocorreu um erro ao atualizar cliente');
+      }
+
+      return cliente;
     } catch ({ message, status }) {
       throw new HttpException(message, status);
     }
-
-    const cliente = await this.clienteRepository.atualizar(
-      atualizarClienteCommand,
-    );
-
-    if (!cliente) {
-      throw new BadRequestException('Ocorreu um erro ao atualizar cliente');
-    }
-
-    return cliente;
   }
 }

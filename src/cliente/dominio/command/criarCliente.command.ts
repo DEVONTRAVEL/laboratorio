@@ -1,6 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsInt, IsNotEmpty, IsString } from 'class-validator';
-import { IsCpfUnique } from '../decorator/IsCpfUnique.decorator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CriarClienteCommand {
   @ApiProperty()
@@ -9,6 +8,5 @@ export class CriarClienteCommand {
   nome: string;
 
   @ApiPropertyOptional()
-  @IsCpfUnique({ message: 'CPF CNPJ já cadastrado' })
   cpfCnpj: string;
 }
