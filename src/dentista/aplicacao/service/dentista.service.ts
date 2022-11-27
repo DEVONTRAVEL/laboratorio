@@ -9,43 +9,63 @@ import { ListarDentistaCommand } from 'src/dentista/dominio/command/listarDentis
 import { CriarDentistaCommand } from 'src/dentista/dominio/command/criarDentista.command';
 import { Dentista } from 'src/dentista/dominio/model/dentista.model';
 import { DentistaRepository } from 'src/dentista/infra/repository/mongoDb/dentista.repository';
+import { ClienteService } from 'src/cliente/aplicacao/service/cliente.service';
 
 @Injectable()
 export class DentistaService {
-  constructor(private dentistaRepository: DentistaRepository) {}
+  constructor(
+    private dentistaRepository: DentistaRepository,
+    private clienteService: ClienteService,
+  ) {}
 
   async listar(
     listarDentistaCommand: ListarDentistaCommand,
   ): Promise<Dentista[]> {
-    const resultado = await this.dentistaRepository.listar(
-      listarDentistaCommand,
-    );
+    try {
+      const resultado = await this.dentistaRepository.listar(
+        listarDentistaCommand,
+      );
 
-    if (!resultado) {
-      throw new NotFoundException('Nenhum dentista encontrado');
+      if (!resultado) {
+        throw new NotFoundException('Nenhum dentista encontrado');
+      }
+
+      return resultado;
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
     }
-
-    return resultado;
   }
 
   async criar(criarDentistaCommand: CriarDentistaCommand): Promise<Dentista> {
-    const dentista = await this.dentistaRepository.criar(criarDentistaCommand);
+    try {
+      await this.clienteService.buscar(criarDentistaCommand.clienteId);
 
-    if (!dentista) {
-      throw new BadRequestException('Ocorreu um erro ao cadastrar dentista');
+      const dentista = await this.dentistaRepository.criar(
+        criarDentistaCommand,
+      );
+
+      if (!dentista) {
+        throw new BadRequestException('Ocorreu um erro ao cadastrar dentista');
+      }
+
+      return dentista;
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
     }
-
-    return dentista;
   }
 
   async buscar(id: string): Promise<Dentista> {
-    const resultado = await this.dentistaRepository.buscar(id);
+    try {
+      const resultado = await this.dentistaRepository.buscar(id);
 
-    if (!resultado) {
-      throw new NotFoundException('Dentista não encontrado');
+      if (!resultado) {
+        throw new NotFoundException('Dentista não encontrado');
+      }
+
+      return resultado;
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
     }
-
-    return resultado;
   }
 
   async atualizar(
@@ -53,18 +73,18 @@ export class DentistaService {
   ): Promise<Dentista> {
     try {
       await this.buscar(atualizarDentistaCommand.id);
+
+      const dentista = await this.dentistaRepository.atualizar(
+        atualizarDentistaCommand,
+      );
+
+      if (!dentista) {
+        throw new BadRequestException('Ocorreu um erro ao atualizar dentista');
+      }
+
+      return dentista;
     } catch ({ message, status }) {
       throw new HttpException(message, status);
     }
-
-    const dentista = await this.dentistaRepository.atualizar(
-      atualizarDentistaCommand,
-    );
-
-    if (!dentista) {
-      throw new BadRequestException('Ocorreu um erro ao atualizar dentista');
-    }
-
-    return dentista;
   }
 }
