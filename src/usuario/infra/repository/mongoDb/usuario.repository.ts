@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/prisma/prisma.service';
 import { CriaUsuarioCommand } from 'src/usuario/dominio/command/criaUsuario.command';
+import { Usuario } from 'src/usuario/dominio/model/usuario.model';
 import { ListarUsuariosQuery } from 'src/usuario/dominio/query/listarUsuarios.query';
 
 @Injectable()
@@ -28,7 +29,9 @@ export class UsuarioRepository {
     }
   }
 
-  async criar(criaUsuarioCommand: CriaUsuarioCommand) {
+  async criar(
+    criaUsuarioCommand: CriaUsuarioCommand,
+  ): Promise<Usuario | false> {
     try {
       return await this.prismaService.usuario.create({
         data: criaUsuarioCommand,

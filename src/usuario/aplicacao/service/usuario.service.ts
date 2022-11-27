@@ -1,9 +1,11 @@
 import {
   BadRequestException,
+  HttpException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { CriaUsuarioCommand } from 'src/usuario/dominio/command/criaUsuario.command';
+import { Usuario } from 'src/usuario/dominio/model/usuario.model';
 import { ListarUsuariosQuery } from 'src/usuario/dominio/query/listarUsuarios.query';
 import { UsuarioRepository } from 'src/usuario/infra/repository/mongoDb/usuario.repository';
 
@@ -12,22 +14,30 @@ export class UsuarioService {
   constructor(private usuarioRepository: UsuarioRepository) {}
 
   async listar(): Promise<ListarUsuariosQuery[]> {
-    const resultado = await this.usuarioRepository.listar();
+    try {
+      const resultado = await this.usuarioRepository.listar();
 
-    if (!resultado) {
-      throw new NotFoundException('Nenhum usuário encontrado');
+      if (!resultado) {
+        throw new NotFoundException('Nenhum usuário encontrado');
+      }
+
+      return resultado;
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
     }
-
-    return resultado;
   }
 
-  async criar(criaUsuarioCommand: CriaUsuarioCommand) {
-    const usuario = await this.usuarioRepository.criar(criaUsuarioCommand);
+  async criar(criaUsuarioCommand: CriaUsuarioCommand): Promise<Usuario> {
+    try {
+      const usuario = await this.usuarioRepository.criar(criaUsuarioCommand);
 
-    if (!usuario) {
-      throw new BadRequestException('Não foi possível cadastrar o usuário');
+      if (!usuario) {
+        throw new BadRequestException('Não foi possível cadastrar o usuário');
+      }
+
+      return usuario;
+    } catch ({ message, status }) {
+      throw new HttpException(message, status);
     }
-
-    return usuario;
   }
 }
