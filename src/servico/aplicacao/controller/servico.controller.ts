@@ -11,6 +11,7 @@ import {
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/core/auth/guard/jwt.guard';
 import { DataAtualizarServicoCommand } from 'src/servico/dominio/command/atualizarServico.command';
+import { CriarClienteServicoCommand } from 'src/servico/dominio/command/criarClienteServico.command';
 import { CriarServicoCommand } from 'src/servico/dominio/command/criarServico.command';
 import { ListarServicoCommand } from 'src/servico/dominio/command/listarServico.command';
 import { Servico } from 'src/servico/dominio/model/servico.model';
@@ -55,5 +56,14 @@ export class ServicoController {
     @Body() criarServicoCommand: CriarServicoCommand,
   ): Promise<Servico> {
     return await this.servicoService.criar(criarServicoCommand);
+  }
+
+  @Post('cliente')
+  async criarClienteServico(
+    @Body() criarClienteServicoCommand: CriarClienteServicoCommand,
+  ) {
+    return await this.servicoService.criarClienteServico(
+      criarClienteServicoCommand,
+    );
   }
 }

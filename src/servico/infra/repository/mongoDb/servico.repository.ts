@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/prisma/prisma.service';
 import { AtualizarServicoCommand } from 'src/servico/dominio/command/atualizarServico.command';
+import { CriarClienteServicoCommand } from 'src/servico/dominio/command/criarClienteServico.command';
 import { CriarServicoCommand } from 'src/servico/dominio/command/criarServico.command';
 import { ListarServicoCommand } from 'src/servico/dominio/command/listarServico.command';
 import { Servico } from 'src/servico/dominio/model/servico.model';
@@ -77,6 +78,16 @@ export class ServicoRepository {
       }
 
       return resultado;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async criarClienteServico(data: CriarClienteServicoCommand) {
+    try {
+      return await this.prismaService.clienteServico.create({
+        data,
+      });
     } catch (error) {
       return false;
     }
