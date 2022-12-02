@@ -16,11 +16,16 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const { url } = ctx.getRequest<Request>();
 
+    const message = exception.getResponse()
+      ? exception.getResponse()
+      : 'Entre em contato com a equipe de T.I';
+    const status = exception.getStatus();
+
     httpAdapter.reply(
       host.switchToHttp().getResponse(),
       {
-        message: exception.getResponse(),
-        status: exception.getStatus(),
+        message,
+        status,
         error: [],
         path: url,
       },
