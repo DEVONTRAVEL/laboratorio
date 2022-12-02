@@ -5,6 +5,8 @@ import { UsuarioModule } from './usuario/usuario.module';
 import { ClienteModule } from './cliente/cliente.module';
 import { DentistaModule } from './dentista/dentista.module';
 import { ServicoModule } from './servico/servico.module';
+import { HttpExceptionFilter } from './core/filter/httpException.filter';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -16,6 +18,11 @@ import { ServicoModule } from './servico/servico.module';
     ServicoModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      useClass: HttpExceptionFilter,
+      provide: APP_FILTER,
+    },
+  ],
 })
 export class AppModule {}
