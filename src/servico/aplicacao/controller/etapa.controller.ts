@@ -39,6 +39,7 @@ export class EtapaController {
     return await this.etapaService.criar(criarEtapaCommand);
   }
 
+  @ApiOperation({ summary: 'Atualiza uma etapa' })
   @Patch(':id')
   async atualizar(
     @Param('id') id: string,
