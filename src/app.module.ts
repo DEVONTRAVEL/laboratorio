@@ -17,7 +17,6 @@ import { APP_FILTER } from '@nestjs/core';
     DentistaModule,
     ServicoModule,
   ],
-  controllers: [],
   providers: [
     {
       useClass: HttpExceptionFilter,
