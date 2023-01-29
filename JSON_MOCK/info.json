@@ -1,0 +1,52 @@
+{
+  "cliente": [
+    {
+      "nome": "teste",
+      "cpfCnpj": "12321212132122",
+      "id": 1
+    },
+    {
+      "nome": "bruno_teste",
+      "cpfCnpj": "",
+      "id": 2
+    }
+  ],
+  "dentista": [
+    {
+      "nome": "joa dentistaaaa",
+      "cpfCnpj": "",
+      "id": 1
+    },
+    {
+      "nome": "ze dentista",
+      "cpfCnpj": "",
+      "id": 2
+    },
+    {
+      "nome": "nome teste",
+      "clienteId": "1",
+      "cpfCnpj": "",
+      "id": 3
+    }
+  ],
+  "servico": [
+    {
+      "preco": 1.12,
+      "descricao": "com up",
+      "nome": "servivo 1",
+      "id": 1
+    },
+    {
+      "preco": 1.23,
+      "descricao": "dsadfasdfsadfsdfsdfasdf",
+      "nome": "asdasd",
+      "id": 2
+    }
+  ],
+  "etapa": [],
+  "servico1": [
+    {
+      "etapa": []
+    }
+  ]
+}
