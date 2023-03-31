@@ -1,32 +1,34 @@
 {
   "cliente": [
     {
-      "nome": "teste",
-      "cpfCnpj": "12321212132122",
-      "id": 1
+      "nome": "bruno_testesss",
+      "cpfCnpj": "1212323",
+      "id": 2
     },
     {
-      "nome": "bruno_teste",
+      "nome": "Bruno da Silva Pedroso",
       "cpfCnpj": "",
-      "id": 2
+      "id": 3
     }
   ],
   "dentista": [
     {
       "nome": "joa dentistaaaa",
       "cpfCnpj": "",
-      "id": 1
+      "id": 1,
+      "clienteId": 31
     },
     {
       "nome": "ze dentista",
       "cpfCnpj": "",
-      "id": 2
+      "id": 2,
+      "clienteId": 31
     },
     {
-      "nome": "nome teste",
-      "clienteId": "1",
-      "cpfCnpj": "",
-      "id": 3
+      "nome": "bruno",
+      "clienteId": "3",
+      "cpfCnpj": "123123",
+      "id": 4
     }
   ],
   "servico": [
@@ -34,19 +36,137 @@
       "preco": 1.12,
       "descricao": "com up",
       "nome": "servivo 1",
-      "id": 1
+      "id": 1,
+      "clienteId": 31
     },
     {
       "preco": 1.23,
       "descricao": "dsadfasdfsadfsdfsdfasdf",
       "nome": "asdasd",
+      "id": 2,
+      "clienteId": 31
+    },
+    {
+      "preco": 0,
+      "descricao": "4123123",
+      "nome": "tewts",
+      "clienteId": "2",
+      "id": 5
+    }
+  ],
+  "entradaServico": [
+    {
+      "descricao": "teste",
+      "clienteId": "1",
+      "dentistaId": "1",
       "id": 2
     }
   ],
-  "etapa": [],
-  "servico1": [
+  "servicoEtapa": [
     {
-      "etapa": []
+      "servicoId": "1",
+      "nome": "eatpa 222 atualizar",
+      "preco": 101.22,
+      "descricao": "descricao etapa atrualizar",
+      "id": 1
+    },
+    {
+      "preco": 12.42,
+      "descricao": "etapa teste",
+      "nome": "etapa",
+      "servicoId": {
+        "preco": 1.12,
+        "descricao": "com up",
+        "nome": "servivo 1",
+        "id": 1,
+        "clienteId": 31
+      },
+      "id": 2
+    },
+    {
+      "preco": 3.23,
+      "descricao": "sssss",
+      "nome": "Bruno da Silva Pedroso",
+      "servicoId": 4,
+      "id": 3
+    },
+    {
+      "preco": 23.23,
+      "descricao": "asdasdfs",
+      "nome": "tsetsssssss",
+      "servicoId": 4,
+      "id": 4
+    },
+    {
+      "preco": 10.12,
+      "descricao": "descricao etapa sss",
+      "nome": "eatpa 222",
+      "servicoId": 3,
+      "id": 5
+    },
+    {
+      "preco": 3232222.22,
+      "descricao": "teste atualizar",
+      "nome": "Bruno atualizar",
+      "servicoId": 1,
+      "id": 6
+    },
+    {
+      "preco": 21.21,
+      "descricao": "descricao etapa s",
+      "nome": "Bruno",
+      "servicoId": 1,
+      "id": 7
+    },
+    {
+      "preco": 10.12,
+      "descricao": "sss",
+      "nome": "Bruno",
+      "servicoId": 3,
+      "id": 8
+    },
+    {
+      "preco": 10.12,
+      "descricao": "sdsd",
+      "nome": "tewts",
+      "servicoId": 3,
+      "id": 9
+    },
+    {
+      "preco": 10.12,
+      "descricao": "asd",
+      "nome": "tewts",
+      "servicoId": 3,
+      "id": 10
+    },
+    {
+      "preco": 10.12,
+      "descricao": "descricao etapa s",
+      "nome": "asd",
+      "servicoId": 2,
+      "id": 11
+    },
+    {
+      "preco": 1,
+      "descricao": "teste",
+      "nome": "fundiçõa",
+      "servicoId": 5,
+      "id": 12
+    },
+    {
+      "preco": 10.12,
+      "descricao": "descricao etapa auruta",
+      "nome": "eatpa 222",
+      "servicoId": 1,
+      "id": 13
+    }
+  ],
+  "clinica": [
+    {
+      "nome": "minha clinica",
+      "clienteId": "3",
+      "cpfCnpj": "123456789",
+      "id": 1
     }
   ]
 }
