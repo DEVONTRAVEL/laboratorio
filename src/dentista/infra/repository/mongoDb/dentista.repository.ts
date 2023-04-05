@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/prisma/prisma.service';
 import { AtualizarDentistaCommand } from 'src/dentista/dominio/command/atualizarDentista.command';
-import { ListarDentistaCommand } from 'src/dentista/dominio/command/listarDentista.command';
 import { CriarDentistaCommand } from 'src/dentista/dominio/command/criarDentista.command';
+import { ListarDentistaCommand } from 'src/dentista/dominio/command/listarDentista.command';
 import { Dentista } from 'src/dentista/dominio/model/dentista.model';
 
 @Injectable()
@@ -10,13 +10,13 @@ export class DentistaRepository {
   constructor(private prismaService: PrismaService) {}
 
   async listar({
-    cliente,
+    clinica,
     servicoExecutado,
   }: ListarDentistaCommand): Promise<Dentista[] | false> {
     try {
       const resultado = await this.prismaService.dentista.findMany({
         include: {
-          cliente: cliente == 'true' ? true : false,
+          clinica: clinica == 'true' ? true : false,
           servicoExecutado: servicoExecutado == 'true' ? true : false,
         },
       });
@@ -47,7 +47,7 @@ export class DentistaRepository {
     try {
       const resultado = await this.prismaService.dentista.findUnique({
         include: {
-          cliente: true,
+          clinica: true,
           servicoExecutado: true,
         },
         where: {

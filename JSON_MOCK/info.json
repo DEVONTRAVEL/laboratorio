@@ -16,7 +16,8 @@
       "nome": "joa dentistaaaa",
       "cpfCnpj": "",
       "id": 1,
-      "clienteId": 31
+      "clienteId": 31,
+      "clinicaId": "1"
     },
     {
       "nome": "ze dentista",
@@ -28,7 +29,20 @@
       "nome": "bruno",
       "clienteId": "3",
       "cpfCnpj": "123123",
-      "id": 4
+      "id": 4,
+      "clinicaId": "2"
+    },
+    {
+      "nome": "teste",
+      "clienteId": "1",
+      "cpfCnpj": "12321212132122",
+      "id": 5
+    },
+    {
+      "nome": "nova clinica 04 ",
+      "clinicaId": "1",
+      "cpfCnpj": "121",
+      "id": 6
     }
   ],
   "servico": [
@@ -37,14 +51,14 @@
       "descricao": "com up",
       "nome": "servivo 1",
       "id": 1,
-      "clienteId": 31
+      "clienteId": "2"
     },
     {
       "preco": 1.23,
       "descricao": "dsadfasdfsadfsdfsdfasdf",
       "nome": "asdasd",
       "id": 2,
-      "clienteId": 31
+      "clienteId": "3"
     },
     {
       "preco": 0,
@@ -52,20 +66,35 @@
       "nome": "tewts",
       "clienteId": "2",
       "id": 5
+    },
+    {
+      "preco": 0,
+      "descricao": "dsadfasdfsadfsdfsdfasdf",
+      "nome": "server",
+      "clienteId": "2",
+      "id": 6
     }
   ],
   "entradaServico": [
     {
+      "paciente":"",
       "descricao": "teste",
-      "clienteId": "1",
+      "clienteId": "2",
       "dentistaId": "1",
       "id": 2
+    },
+    {
+      "descricao": "teste 20-01 v 1",
+      "clienteId": "3",
+      "dentistaId": "2",
+      "servicoId": "2",
+      "id": 3
     }
   ],
   "servicoEtapa": [
     {
       "servicoId": "1",
-      "nome": "eatpa 222 atualizar",
+      "nome": "tetsetette esfoi",
       "preco": 101.22,
       "descricao": "descricao etapa atrualizar",
       "id": 1
@@ -74,13 +103,6 @@
       "preco": 12.42,
       "descricao": "etapa teste",
       "nome": "etapa",
-      "servicoId": {
-        "preco": 1.12,
-        "descricao": "com up",
-        "nome": "servivo 1",
-        "id": 1,
-        "clienteId": 31
-      },
       "id": 2
     },
     {
@@ -159,14 +181,75 @@
       "nome": "eatpa 222",
       "servicoId": 1,
       "id": 13
+    },
+    {
+      "preco": 3232222.22,
+      "descricao": "teste atualizar",
+      "nome": "Bruno atualizar",
+      "servicoId": 1,
+      "id": 14
+    },
+    {
+      "preco": 1.12,
+      "descricao": "sdfsdfsdf",
+      "nome": "teste atttttt",
+      "servicoId": 1,
+      "id": 15
     }
   ],
   "clinica": [
     {
       "nome": "minha clinica",
-      "clienteId": "3",
+      "clienteId": "2",
       "cpfCnpj": "123456789",
       "id": 1
+    },
+    {
+      "nome": "teste",
+      "clienteId": "2",
+      "cpfCnpj": "12321212132122",
+      "id": 2
+    }
+  ],
+  "entradaServicoEtapa": [
+    {
+      "nome": "etapa 1",
+      "descricao": "etapa 1 descrição",
+      "servicoId": 2,
+      "id": 2,
+      "check": false
+    },
+    {
+      "nome": "etapa 2",
+      "descricao": "sdfsdfsdf",
+      "preco": 1.12,
+      "servicoId": 2,
+      "id": 15,
+      "check": false
+    },
+    {
+      "nome": "etapa 3",
+      "preco": 1.12,
+      "descricao": "sdfsdfsdf",
+      "servicoId": 1,
+      "id": 15,
+      "check": true
+    },
+    {
+      "nome": "etapa 4",
+      "preco": 1.12,
+      "descricao": "sdfsdfsdf",
+      "servicoId": 1,
+      "id": 15,
+      "check": true
+    },
+    {
+      "nome": "etapa 3",
+      "descricao": "sdfsdfsdf",
+      "preco": 1.12,
+      "servicoId": 2,
+      "id": 1,
+      "check": false
     }
   ]
 }

@@ -18,7 +18,7 @@ import { Servico } from 'src/servico/dominio/model/servico.model';
 import { ServicoService } from '../service/servico.service';
 
 @ApiTags('Serviço')
-@UseGuards(JwtGuard)
+// @UseGuards(JwtGuard)
 @ApiBearerAuth()
 @Controller('servico')
 export class ServicoController {

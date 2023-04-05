@@ -61,13 +61,17 @@ export class ClienteService {
     }
   }
 
-  async verificarCpfExistente(cpf: string): Promise<void> {
+  async verificarCpfExistente(cpf: string): Promise<boolean> {
     try {
-      const resultado = await this.clienteRepository.verificarCpfExistente(cpf);
+      if (!cpf) {
+        return false;
+      }
+      const resultado = await this.clienteRepository.buscarComCnpj(cpf);
 
       if (resultado) {
         throw new BadRequestException('CPF/CNPJ já cadastrado');
       }
+      return false;
     } catch ({ message, status }) {
       throw new HttpException(message, status);
     }

@@ -7,7 +7,7 @@ import { ListarUsuariosQuery } from 'src/usuario/dominio/query/listarUsuarios.qu
 import { UsuarioService } from '../service/usuario.service';
 
 @ApiTags('Usuário')
-@Controller('usuario')
+@Controller({path:"usuario", version: "1"})
 @UseGuards(JwtGuard)
 @ApiBearerAuth()
 export class UsuarioController {

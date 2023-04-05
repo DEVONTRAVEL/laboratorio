@@ -10,12 +10,13 @@ import { CriarDentistaCommand } from 'src/dentista/dominio/command/criarDentista
 import { Dentista } from 'src/dentista/dominio/model/dentista.model';
 import { DentistaRepository } from 'src/dentista/infra/repository/mongoDb/dentista.repository';
 import { ClienteService } from 'src/cliente/aplicacao/service/cliente.service';
+import { ClinicaService } from 'src/clinica/aplicacao/service/clinica.service';
 
 @Injectable()
 export class DentistaService {
   constructor(
     private dentistaRepository: DentistaRepository,
-    private clienteService: ClienteService,
+    private clinicaService: ClinicaService,
   ) {}
 
   async listar(
@@ -38,7 +39,7 @@ export class DentistaService {
 
   async criar(criarDentistaCommand: CriarDentistaCommand): Promise<Dentista> {
     try {
-      await this.clienteService.buscar(criarDentistaCommand.clienteId);
+      await this.clinicaService.buscar(criarDentistaCommand.clinicaId);
 
       const dentista = await this.dentistaRepository.criar(
         criarDentistaCommand,

@@ -13,11 +13,12 @@ import { CriarClienteCommand } from 'src/cliente/dominio/command/criarCliente.co
 import { Cliente } from 'src/cliente/dominio/model/cliente.model';
 import { JwtGuard } from 'src/core/auth/guard/jwt.guard';
 import { ClienteService } from '../service/cliente.service';
+import { version } from 'os';
 
 @ApiTags('Cliente')
 @UseGuards(JwtGuard)
 @ApiBearerAuth()
-@Controller('cliente')
+@Controller({ path: 'cliente', version: '1' })
 export class ClienteController {
   constructor(private clienteService: ClienteService) {}
 

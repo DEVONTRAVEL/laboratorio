@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { log } from 'console';
 import { AtualizarClienteCommand } from 'src/cliente/dominio/command/atualizarCliente.command';
 import { CriarClienteCommand } from 'src/cliente/dominio/command/criarCliente.command';
 import { Cliente } from 'src/cliente/dominio/model/cliente.model';
@@ -38,7 +39,7 @@ export class ClienteRepository {
     try {
       const resultado = await this.prismaService.cliente.findUnique({
         include: {
-          dentista: true,
+          clinica: true,
         },
         where: {
           id,
@@ -55,7 +56,7 @@ export class ClienteRepository {
     }
   }
 
-  async verificarCpfExistente(cpfCnpj: string): Promise<boolean> {
+  async buscarComCnpj(cpfCnpj: string): Promise<Cliente | false> {
     try {
       const cliente = await this.prismaService.cliente.findFirst({
         where: {
@@ -64,10 +65,10 @@ export class ClienteRepository {
       });
 
       if (!cliente) {
-        return true;
+        return false;
       }
 
-      return false;
+      return cliente;
     } catch (error) {
       return false;
     }

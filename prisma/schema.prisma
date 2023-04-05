@@ -35,11 +35,12 @@ model servico {
 }
 
 model dentista {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
   nome      String
-  clienteId String @db.ObjectId
+  cpfCnpj   String? @default("")
+  clinicaId String  @db.ObjectId
 
-  cliente          cliente           @relation(references: [id], fields: [clienteId])
+  clinica          clinica           @relation(references: [id], fields: [clinicaId])
   servicoExecutado servicoExecucao[]
 }
 
@@ -60,7 +61,17 @@ model cliente {
 
   clienteServico clienteServico[]
   clienteEtapa   clienteEtapa[]
-  dentista       dentista[]
+  clinica        clinica[]
+}
+
+model clinica {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  nome      String
+  cpfCnpj   String? @default("")
+  clienteId String  @db.ObjectId
+
+  cliente  cliente    @relation(fields: [clienteId], references: [id])
+  dentista dentista[]
 }
 
 model servicoExecucao {

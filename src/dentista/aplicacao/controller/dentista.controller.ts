@@ -19,7 +19,7 @@ import { DentistaService } from '../service/dentista.service';
 @ApiTags('Dentista')
 @UseGuards(JwtGuard)
 @ApiBearerAuth()
-@Controller('dentista')
+@Controller({path:"dentista", version:"1"})
 export class DentistaController {
   constructor(private dentistaService: DentistaService) {}
 
