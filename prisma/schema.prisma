@@ -25,11 +25,12 @@ model usuario {
 }
 
 model servico {
-  id   String @id @default(auto()) @map("_id") @db.ObjectId
-  nome String
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  nome      String
+  descricao String? @default("")
 
   etapa           etapa[]
-  clienteServico  clienteServico[]
+  clinicaServico  clinicaServico[]
   servicoExecucao servicoExecucao[]
   clienteEtapa    clienteEtapa[]
 }
@@ -59,9 +60,8 @@ model cliente {
   nome    String
   cpfCnpj String? @default("")
 
-  clienteServico clienteServico[]
-  clienteEtapa   clienteEtapa[]
-  clinica        clinica[]
+  clienteEtapa clienteEtapa[]
+  clinica      clinica[]
 }
 
 model clinica {
@@ -70,17 +70,18 @@ model clinica {
   cpfCnpj   String? @default("")
   clienteId String  @db.ObjectId
 
-  cliente  cliente    @relation(fields: [clienteId], references: [id])
-  dentista dentista[]
+  cliente        cliente          @relation(fields: [clienteId], references: [id])
+  dentista       dentista[]
+  clinicaServico clinicaServico[]
 }
 
 model servicoExecucao {
   id               String @id @default(auto()) @map("_id") @db.ObjectId
   servicoId        String @db.ObjectId
   dentistaId       String @db.ObjectId
-  clienteServicoId String @db.ObjectId
+  clinicaServicoId String @db.ObjectId
 
-  clienteServico       clienteServico         @relation(fields: [clienteServicoId], references: [id])
+  clinicaServico       clinicaServico         @relation(fields: [clinicaServicoId], references: [id])
   servico              servico                @relation(fields: [servicoId], references: [id])
   dentista             dentista               @relation(fields: [dentistaId], references: [id])
   servicoExecucaoEtapa servicoExecucaoEtapa[]
@@ -109,13 +110,14 @@ model clienteEtapa {
   servicoExecucaoEtapa servicoExecucaoEtapa[]
 }
 
-model clienteServico {
-  id        String @id @default(auto()) @map("_id") @db.ObjectId
-  clienteId String @db.ObjectId
-  servicoId String @db.ObjectId
+model clinicaServico {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  clinicaId String   @db.ObjectId
+  servicoId String   @db.ObjectId
   valor     Int
+  exclusao  Boolean? @default(false)
 
   servico         servico           @relation(fields: [servicoId], references: [id])
-  cliente         cliente           @relation(fields: [clienteId], references: [id])
+  clinica         clinica           @relation(fields: [clinicaId], references: [id])
   servicoExecucao servicoExecucao[]
 }

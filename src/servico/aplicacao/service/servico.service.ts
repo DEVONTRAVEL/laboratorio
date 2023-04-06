@@ -4,9 +4,9 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ClienteService } from 'src/cliente/aplicacao/service/cliente.service';
+import { ClinicaService } from 'src/clinica/aplicacao/service/clinica.service';
 import { AtualizarServicoCommand } from 'src/servico/dominio/command/atualizarServico.command';
-import { CriarClienteServicoCommand } from 'src/servico/dominio/command/criarClienteServico.command';
+import { CriarClinicaServicoCommand } from 'src/servico/dominio/command/criarClinicaServico.command';
 import { CriarServicoCommand } from 'src/servico/dominio/command/criarServico.command';
 import { ListarServicoCommand } from 'src/servico/dominio/command/listarServico.command';
 import { Servico } from 'src/servico/dominio/model/servico.model';
@@ -16,7 +16,7 @@ import { ServicoRepository } from 'src/servico/infra/repository/mongoDb/servico.
 export class ServicoService {
   constructor(
     private servicoRepository: ServicoRepository,
-    private clienteService: ClienteService,
+    private clinicaService: ClinicaService,
   ) {}
 
   async listar(listarServicoCommand: ListarServicoCommand): Promise<Servico[]> {
@@ -74,29 +74,6 @@ export class ServicoService {
       }
 
       return servico;
-    } catch ({ message, status }) {
-      throw new HttpException(message, status);
-    }
-  }
-
-  async criarClienteServico(
-    criarClienteServicoCommand: CriarClienteServicoCommand,
-  ) {
-    try {
-      await this.buscar(criarClienteServicoCommand.servicoId);
-      await this.clienteService.buscar(criarClienteServicoCommand.clienteId);
-
-      const resultado = await this.servicoRepository.criarClienteServico(
-        criarClienteServicoCommand,
-      );
-
-      if (!resultado) {
-        throw new BadRequestException(
-          'Ocorreu um erro ao cadastrar Serviço cliente',
-        );
-      }
-
-      return resultado;
     } catch ({ message, status }) {
       throw new HttpException(message, status);
     }

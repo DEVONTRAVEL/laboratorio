@@ -1,13 +1,14 @@
 import { ClienteEtapa } from './clienteEtapa.model';
-import { ClienteServico } from './clienteServico.model';
+import { ClinicaServico } from './clinicaServico.model';
 import { Etapa } from './etapa.model';
 import { ServicoExecucao } from './servicoExecucao.model';
 
 export class Servico {
   id: string;
   nome: string;
+  descricao: string;
   etapa?: Etapa[];
-  clienteServico?: ClienteServico[];
+  clinicaServico?: ClinicaServico[];
   servicoExecucao?: ServicoExecucao[];
   clienteEtapa?: ClienteEtapa[];
 }

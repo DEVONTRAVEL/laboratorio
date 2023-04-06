@@ -1,20 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/prisma/prisma.service';
+import { AtualizarClinicaServicoCommand } from 'src/servico/dominio/command/atualizarClinicaServico.command';
 import { AtualizarServicoCommand } from 'src/servico/dominio/command/atualizarServico.command';
 import { CriarClinicaServicoCommand } from 'src/servico/dominio/command/criarClinicaServico.command';
-import { CriarServicoCommand } from 'src/servico/dominio/command/criarServico.command';
-import { ListarServicoCommand } from 'src/servico/dominio/command/listarServico.command';
+import { ListarClinicaServicoCommand } from 'src/servico/dominio/command/listarClinicaServico.command';
+
+import { ClinicaServico } from 'src/servico/dominio/model/clinicaServico.model';
 import { Servico } from 'src/servico/dominio/model/servico.model';
 
 @Injectable()
-export class ServicoRepository {
+export class ClinicaServicoRepository {
   constructor(private prismaService: PrismaService) {}
 
-  async listar({ etapa }: ListarServicoCommand): Promise<Servico[] | false> {
+  async listar({
+    clinica,
+    servico,
+  }: ListarClinicaServicoCommand): Promise<ClinicaServico[] | false> {
     try {
-      const resultado = await this.prismaService.servico.findMany({
+      const resultado = await this.prismaService.clinicaServico.findMany({
         include: {
-          etapa: etapa == 'true' ? true : false,
+          clinica: clinica == 'true' ? true : false,
+          servico: servico == 'true' ? true : false,
         },
       });
 
@@ -28,27 +34,31 @@ export class ServicoRepository {
     }
   }
 
-  async criar(data: CriarServicoCommand) {
+  async criar(data: CriarClinicaServicoCommand) {
     try {
-      return await this.prismaService.servico.create({
+      return await this.prismaService.clinicaServico.create({
         data,
       });
     } catch (error) {
+      console.log(error);
+
       return false;
     }
   }
 
   async buscar(id: string) {
+    console.log(id);
+
     try {
-      const resultado = await this.prismaService.servico.findFirst({
+      const resultado = await this.prismaService.clinicaServico.findFirst({
         include: {
-          etapa: true,
+          clinica: true,
+          servico: true,
         },
         where: {
           id,
         },
       });
-
       if (!resultado) {
         return false;
       }
@@ -62,11 +72,12 @@ export class ServicoRepository {
   async atualizar({
     id,
     data,
-  }: AtualizarServicoCommand): Promise<Servico | false> {
+  }: AtualizarClinicaServicoCommand): Promise<ClinicaServico | false> {
     try {
-      if (!data.nome) delete data.nome;
+      if (!data.valor) delete data.valor;
+      if (!data.exclusao) delete data.exclusao;
 
-      const resultado = await this.prismaService.servico.update({
+      const resultado = await this.prismaService.clinicaServico.update({
         data,
         where: {
           id,
