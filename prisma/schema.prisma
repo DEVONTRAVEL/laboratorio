@@ -17,6 +17,13 @@ model protetico {
   servicoExecucaoEtapa servicoExecucaoEtapa[]
 }
 
+model paciente {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  nome            String
+  cpfRg           String            @unique
+  servicoExecucao servicoExecucao[]
+}
+
 model usuario {
   id    String @id @default(auto()) @map("_id") @db.ObjectId
   nome  String
@@ -29,7 +36,6 @@ model servico {
   nome      String
   descricao String? @default("")
 
-  etapa           etapa[]
   clinicaServico  clinicaServico[]
   servicoExecucao servicoExecucao[]
   clienteEtapa    clienteEtapa[]
@@ -46,13 +52,13 @@ model dentista {
 }
 
 model etapa {
-  id           String         @id @default(auto()) @map("_id") @db.ObjectId
-  nome         String
-  valor        Int
-  servicoId    String         @db.ObjectId
-  clienteEtapa clienteEtapa[]
+  id               String         @id @default(auto()) @map("_id") @db.ObjectId
+  nome             String
+  valor            Int
+  clinicaServicoId String         @db.ObjectId
+  clienteEtapa     clienteEtapa[]
 
-  servico servico @relation(fields: [servicoId], references: [id])
+  clinicaServico clinicaServico @relation(fields: [clinicaServicoId], references: [id])
 }
 
 model cliente {
@@ -70,20 +76,28 @@ model clinica {
   cpfCnpj   String? @default("")
   clienteId String  @db.ObjectId
 
-  cliente        cliente          @relation(fields: [clienteId], references: [id])
-  dentista       dentista[]
-  clinicaServico clinicaServico[]
+  cliente         cliente           @relation(fields: [clienteId], references: [id])
+  dentista        dentista[]
+  clinicaServico  clinicaServico[]
+  servicoExecucao servicoExecucao[]
 }
 
 model servicoExecucao {
-  id               String @id @default(auto()) @map("_id") @db.ObjectId
-  servicoId        String @db.ObjectId
-  dentistaId       String @db.ObjectId
-  clinicaServicoId String @db.ObjectId
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  descricao        String?  @default("")
+  dataHora         DateTime @default(now())
+  dentistaId       String   @db.ObjectId
+  clinicaId        String   @db.ObjectId
+  clinicaServicoId String   @db.ObjectId
+  servicoId        String   @db.ObjectId
+  pacienteId       String?  @default("") @db.ObjectId
 
-  clinicaServico       clinicaServico         @relation(fields: [clinicaServicoId], references: [id])
-  servico              servico                @relation(fields: [servicoId], references: [id])
-  dentista             dentista               @relation(fields: [dentistaId], references: [id])
+  clinicaServico clinicaServico @relation(fields: [clinicaServicoId], references: [id])
+  servico        servico        @relation(fields: [servicoId], references: [id])
+  dentista       dentista       @relation(fields: [dentistaId], references: [id])
+  clinica        clinica        @relation(fields: [clinicaId], references: [id])
+  paciente       paciente?      @relation(fields: [pacienteId], references: [id])
+
   servicoExecucaoEtapa servicoExecucaoEtapa[]
 }
 
@@ -120,4 +134,5 @@ model clinicaServico {
   servico         servico           @relation(fields: [servicoId], references: [id])
   clinica         clinica           @relation(fields: [clinicaId], references: [id])
   servicoExecucao servicoExecucao[]
+  etapa           etapa[]
 }

@@ -15,10 +15,9 @@ import { CriarServicoCommand } from 'src/servico/dominio/command/criarServico.co
 import { ListarServicoCommand } from 'src/servico/dominio/command/listarServico.command';
 import { Servico } from 'src/servico/dominio/model/servico.model';
 import { ServicoService } from '../service/servico.service';
-import { CriarClinicaServicoCommand } from 'src/servico/dominio/command/criarClinicaServico.command';
 
 @ApiTags('Serviço')
-// @UseGuards(JwtGuard)
+@UseGuards(JwtGuard)
 @ApiBearerAuth()
 @Controller({ path: 'servico', version: '1' })
 export class ServicoController {

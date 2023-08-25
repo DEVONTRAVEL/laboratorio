@@ -1,0 +1,93 @@
+{
+  "produtos": [
+    {
+      "id": 1,
+      "title": "Mirtilo Importado BERRY GOOD 125g",
+      "price": "200",
+      "special_price": "",
+      "image": "https://via.placeholder.com/200x200.png?text=Produto+1",
+      "category": "Produtos naturais",
+      "subcategory": "Frutas",
+      "remark": "home",
+      "brand": "BERRY GOOD",
+      "star": "4",
+      "product_code": "345345",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": 2,
+      "title": "Mirtilo Importado BERRY GOOD 125g",
+      "price": "200",
+      "special_price": "100",
+      "image": "https://via.placeholder.com/200x200.png?text=Produto+2",
+      "category": "Produtos naturais",
+      "subcategory": "Frutas",
+      "remark": "home",
+      "brand": "BERRY GOOD",
+      "star": "4",
+      "product_code": "345345",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": 3,
+      "title": "Mirtilo Importado BERRY GOOD 125g",
+      "price": "200",
+      "special_price": "",
+      "image": "https://via.placeholder.com/200x200.png?text=Produto+3",
+      "category": "Produtos naturais",
+      "subcategory": "Frutas",
+      "remark": "home",
+      "brand": "BERRY GOOD",
+      "star": "4",
+      "product_code": "345345",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": 4,
+      "title": "Mirtilo Importado BERRY GOOD 125g",
+      "price": "200",
+      "special_price": "100",
+      "image": "https://via.placeholder.com/200x200.png?text=Produto+4",
+      "category": "Produtos naturais",
+      "subcategory": "Frutas",
+      "remark": "home",
+      "brand": "BERRY GOOD",
+      "star": "4",
+      "product_code": "345345",
+      "created_at": null,
+      "updated_at": null
+    },
+    {
+      "id": 5,
+      "title": "Mirtilo Importado BERRY GOOD 185g",
+      "price": "200",
+      "special_price": "100",
+      "image": "https://via.placeholder.com/200x200.png?text=Produto+5",
+      "category": "Produtos naturais",
+      "subcategory": "Frutas",
+      "remark": "home",
+      "brand": "BERRY GOOD",
+      "star": "4",
+      "product_code": "345345",
+      "created_at": null,
+      "updated_at": null
+    }, {
+      "id": 5,
+      "title": "Mirtilo Importado BERRY GOOD 200g",
+      "price": "200",
+      "special_price": "100",
+      "image": "https://via.placeholder.com/200x200.png?text=Produto+6",
+      "category": "Produtos naturais",
+      "subcategory": "Frutas",
+      "remark": "home",
+      "brand": "BERRY GOOD",
+      "star": "4",
+      "product_code": "345345",
+      "created_at": null,
+      "updated_at": null
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CriarClinicaServicoCommand } from 'src/servico/dominio/command/criarClinicaServico.command';
@@ -13,9 +14,10 @@ import { ClinicaServicoService } from '../service/clinicaServico.service';
 import { ListarClinicaServicoCommand } from 'src/servico/dominio/command/listarClinicaServico.command';
 import { ClinicaServico } from 'src/servico/dominio/model/clinicaServico.model';
 import { DataAtualizarClinicaServicoCommand } from 'src/servico/dominio/command/atualizarClinicaServico.command';
+import { JwtGuard } from 'src/core/auth/guard/jwt.guard';
 
 @ApiTags('Serviço')
-// @UseGuards(JwtGuard)
+@UseGuards(JwtGuard)
 @ApiBearerAuth()
 @Controller({ path: 'servico/clinica', version: '1' })
 export class ClinicaServicoController {

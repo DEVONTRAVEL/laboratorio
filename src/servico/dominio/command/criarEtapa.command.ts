@@ -12,5 +12,5 @@ export class CriarEtapaCommand {
 
   @ApiProperty()
   @IsNotEmpty({ message: 'Serviço Id é obrigatório' })
-  servicoId: string;
+  clinicaServicoId: string;
 }

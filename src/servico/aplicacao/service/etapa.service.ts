@@ -1,20 +1,20 @@
 import {
   BadRequestException,
+  HttpException,
   Injectable,
   NotFoundException,
-  HttpException,
 } from '@nestjs/common';
 import { AtualizarEtapaCommand } from 'src/servico/dominio/command/atualizarEtapa.command';
 import { CriarEtapaCommand } from 'src/servico/dominio/command/criarEtapa.command';
 import { Etapa } from 'src/servico/dominio/model/etapa.model';
 import { EtapaRepository } from 'src/servico/infra/repository/mongoDb/etapa.repository';
-import { ServicoService } from './servico.service';
+import { ClinicaServicoService } from './clinicaServico.service';
 
 @Injectable()
 export class EtapaService {
   constructor(
     private etapaRepository: EtapaRepository,
-    private servicoService: ServicoService,
+    private clinicaServicoService: ClinicaServicoService,
   ) {}
 
   async listar(): Promise<Etapa[]> {
@@ -33,7 +33,9 @@ export class EtapaService {
 
   async criar(criarEtapaCommand: CriarEtapaCommand): Promise<Etapa> {
     try {
-      await this.servicoService.buscar(criarEtapaCommand.servicoId);
+      await this.clinicaServicoService.buscar(
+        criarEtapaCommand.clinicaServicoId,
+      );
 
       const resultado = await this.etapaRepository.criar(criarEtapaCommand);
 

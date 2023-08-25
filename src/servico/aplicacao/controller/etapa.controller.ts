@@ -15,9 +15,9 @@ import { Etapa } from 'src/servico/dominio/model/etapa.model';
 import { EtapaService } from '../service/etapa.service';
 
 @ApiTags('Etapa')
-// @UseGuards(JwtGuard)
+@UseGuards(JwtGuard)
 @ApiBearerAuth()
-@Controller('etapa')
+@Controller({path:"etapa", version:"1"})
 export class EtapaController {
   constructor(private etapaService: EtapaService) {}
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { log } from 'console';
 import { PrismaService } from 'src/core/prisma/prisma.service';
 import { AtualizarClinicaServicoCommand } from 'src/servico/dominio/command/atualizarClinicaServico.command';
 import { AtualizarServicoCommand } from 'src/servico/dominio/command/atualizarServico.command';
@@ -15,13 +16,27 @@ export class ClinicaServicoRepository {
   async listar({
     clinica,
     servico,
+    servicoId,
+    clinicaId,
+    exclusao,
   }: ListarClinicaServicoCommand): Promise<ClinicaServico[] | false> {
     try {
+      const wheres = {
+        exclusao: exclusao === 'true',
+        servicoId,
+        clinicaId,
+      };
+
+      if (!exclusao) delete wheres.exclusao;
+      if (!servicoId) delete wheres.servicoId;
+      if (!clinicaId) delete wheres.clinicaId;
+
       const resultado = await this.prismaService.clinicaServico.findMany({
         include: {
           clinica: clinica == 'true' ? true : false,
           servico: servico == 'true' ? true : false,
         },
+        where: wheres,
       });
 
       if (resultado.length <= 0) {
@@ -40,15 +55,11 @@ export class ClinicaServicoRepository {
         data,
       });
     } catch (error) {
-      console.log(error);
-
       return false;
     }
   }
 
   async buscar(id: string) {
-    console.log(id);
-
     try {
       const resultado = await this.prismaService.clinicaServico.findFirst({
         include: {

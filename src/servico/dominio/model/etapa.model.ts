@@ -5,7 +5,7 @@ export class Etapa {
   id: string;
   nome: string;
   valor: number;
-  servicoId: string;
+  clinicaServicoId: string;
   clienteEtapa?: ClienteEtapa[];
   servico?: Servico;
 }

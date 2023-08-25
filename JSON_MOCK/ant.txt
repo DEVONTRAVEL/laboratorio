@@ -1,3 +1,5 @@
 
 
 json-server --watch info.json
+
+json-server --watch produtos.json --port 5000

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/core/prisma/prisma.service';
 import { AtualizarServicoCommand } from 'src/servico/dominio/command/atualizarServico.command';
-import { CriarClinicaServicoCommand } from 'src/servico/dominio/command/criarClinicaServico.command';
 import { CriarServicoCommand } from 'src/servico/dominio/command/criarServico.command';
 import { ListarServicoCommand } from 'src/servico/dominio/command/listarServico.command';
 import { Servico } from 'src/servico/dominio/model/servico.model';
@@ -10,11 +9,13 @@ import { Servico } from 'src/servico/dominio/model/servico.model';
 export class ServicoRepository {
   constructor(private prismaService: PrismaService) {}
 
-  async listar({ etapa }: ListarServicoCommand): Promise<Servico[] | false> {
+  async listar({
+    clinicaServico,
+  }: ListarServicoCommand): Promise<Servico[] | false> {
     try {
       const resultado = await this.prismaService.servico.findMany({
         include: {
-          etapa: etapa == 'true' ? true : false,
+          clinicaServico: clinicaServico == 'true' ? true : false,
         },
       });
 
@@ -42,7 +43,7 @@ export class ServicoRepository {
     try {
       const resultado = await this.prismaService.servico.findFirst({
         include: {
-          etapa: true,
+          clinicaServico: true,
         },
         where: {
           id,
